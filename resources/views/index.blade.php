@@ -5,7 +5,6 @@
     <meta charset="UTF-8">
     <title>Panel Principal</title>
 
-    <!-- Bootstrap 5 CDN -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 
     <style>
@@ -23,24 +22,70 @@
 
 <body>
 
-    <div class="container py-5">
+@guest
+<!-- 🔐 FORMULARIO LOGIN -->
+<div class="container d-flex justify-content-center align-items-center vh-100">
+    <div class="card shadow p-4" style="width: 400px;">
+        <h3 class="text-center mb-4">Iniciar Sesión</h3>
 
-        <h1 class="text-center text-white mb-5 fw-bold">
-            Panel Principal
-        </h1>
+        @if($errors->any())
+            <div class="alert alert-danger">
+                {{ $errors->first() }}
+            </div>
+        @endif
 
-        <div class="row g-4">
+        <form method="POST" action="{{ route('login') }}">
+            @csrf
 
-            <div class="col-md-4">
-                <a href="{{ route('instructores.index') }}" class="text-decoration-none">
-                    <div class="card shadow card-hover text-center p-4">
-                        <h4 class="text-primary">👨‍🏫 Instructores</h4>
-                        <p class="text-muted">Gestionar instructores</p>
-                    </div>
-                </a>
+            <div class="mb-3">
+                <label>Email</label>
+                <input type="email" name="email" class="form-control" required>
             </div>
 
-            <div class="col-md-4">
+            <div class="mb-3">
+                <label>Password</label>
+                <input type="password" name="password" class="form-control" required>
+            </div>
+
+            <button class="btn btn-primary w-100">Entrar</button>
+        </form>
+    </div>
+</div>
+@endguest
+
+
+@auth
+<!-- ✅ PANEL PRINCIPAL -->
+
+<div class="container py-4 text-end">
+    <form method="POST" action="{{ route('logout') }}">
+        @csrf
+        <button class="btn btn-danger btn-sm">Cerrar sesión</button>
+    </form>
+</div>
+
+<div class="container py-5">
+
+    <h1 class="text-center text-white mb-5 fw-bold">
+        Bienvenido {{ Auth::user()->name }}
+    </h1>
+
+    <div class="row g-4">
+
+        <!-- Aquí empieza tu panel original -->
+
+        <div class="col-md-4">
+            <a href="{{ route('instructores.index') }}" class="text-decoration-none">
+                <div class="card shadow card-hover text-center p-4">
+                    <h4 class="text-primary">👨‍🏫 Instructores</h4>
+                    <p class="text-muted">Gestionar instructores</p>
+                </div>
+            </a>
+        </div>
+
+
+
+        <div class="col-md-4">
                 <a href="{{ route('tiposdocumentos.index') }}" class="text-decoration-none">
                     <div class="card shadow card-hover text-center p-4">
                         <h4 class="text-success">📄 Tipo Documento</h4>
@@ -48,6 +93,8 @@
                     </div>
                 </a>
             </div>
+
+
 
             <div class="col-md-4">
                 <a href="{{ route('programasdeformacion.index') }}" class="text-decoration-none">
@@ -58,46 +105,37 @@
                 </a>
             </div>
 
-            <div class="col-md-4">
+
+             <div class="col-md-4">
                 <a href="{{ route('regionales.index') }}" class="text-decoration-none">
                     <div class="card shadow card-hover text-center p-4">
                         <h4 class="text-danger">🌎 Regionales</h4>
                         <p class="text-muted">Administrar regionales</p>
                     </div>
                 </a>
-            </div>
+             </div>
 
-            <div class="col-md-4">
+             <div class="col-md-4">
                 <a href="{{ route('rolesadministrativos.index') }}" class="text-decoration-none">
                     <div class="card shadow card-hover text-center p-4">
-                        <h4 class="text-dark">🔐 Roles Administrativos</h4>
-                        <p class="text-muted">Gestionar roles</p>
+                        <h4 class="text-danger">📇 Roles administrativos</h4>
+                        <p class="text-muted">Administrar roles administrativos</p>
                     </div>
                 </a>
-            </div>
+             </div>
 
 
-            <div class="col-md-4">
-                <a href="{{ route('aprendices.index') }}" class="text-decoration-none">
-                    <div class="card shadow card-hover text-center p-4">
-                        <h4 class="text-dark">👨‍🎓 Aprendices</h4>
-                        <p class="text-muted">Gestionar aprendices</p>
-                    </div>
-                </a>
-            </div>
-
-
-            <div class="col-md-4">
+             <div class="col-md-4">
                 <a href="{{ route('centrosdeformacion.index') }}" class="text-decoration-none">
                     <div class="card shadow card-hover text-center p-4">
-                        <h4 class="text-dark">🏢 Centros de Formación</h4>
-                        <p class="text-muted">Gestionar centros de formación</p>
+                        <h4 class="text-danger">🏢 Centros de formación</h4>
+                        <p class="text-muted">Administrar centros de formación</p>
                     </div>
                 </a>
-            </div>
+             </div>
 
 
-            <div class="col-md-4">
+              <div class="col-md-4">
                 <a href="{{ route('eps.index') }}" class="text-decoration-none">
                     <div class="card shadow card-hover text-center p-4">
                         <h4 class="text-dark">🏢 EPS</h4>
@@ -106,8 +144,7 @@
                 </a>
             </div>
 
-
-             <div class="col-md-4">
+            <div class="col-md-4">
                 <a href="{{ route('fichasdecaracterizacion.index') }}" class="text-decoration-none">
                     <div class="card shadow card-hover text-center p-4">
                         <h4 class="text-dark">🏢 Ficha de caracterizacion</h4>
@@ -117,7 +154,7 @@
             </div>
 
 
-             <div class="col-md-4">
+            <div class="col-md-4">
                 <a href="{{ route('entecoformadores.index') }}" class="text-decoration-none">
                     <div class="card shadow card-hover text-center p-4">
                         <h4 class="text-dark">🏢 Ente coformadores</h4>
@@ -126,20 +163,32 @@
                 </a>
             </div>
 
-
+            
              <div class="col-md-4">
                 <a href="{{ route('archivos.index') }}" class="text-decoration-none">
                     <div class="card shadow card-hover text-center p-4">
-                        <h4 class="text-dark">🏢 Subir Archivo</h4>
+                        <h4 class="text-dark">📁 Subir Archivo</h4>
                         <p class="text-muted">Subir archivos al sistema</p>
                     </div>
                 </a>
             </div>
 
-        </div>
+
+
+            
+
+
+
+
+             
+                
+
+      
 
     </div>
+</div>
+
+@endauth
 
 </body>
-
 </html>

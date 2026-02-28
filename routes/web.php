@@ -14,6 +14,7 @@ use App\Http\Controllers\EpsController;
 use App\Models\instructores;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ArchivoController;
+use App\Http\Controllers\AuthController;
 
 
 Route::get('/', function () {
@@ -73,6 +74,11 @@ Route::resource('aprendices', AprendicesController::class);
 
 Route::get('/archivos', [ArchivoController::class, 'index'])->name('archivos.index');
 Route::post('/archivos', [ArchivoController::class, 'store'])->name('archivos.store');
+
+
+Route::get('/', [AuthController::class, 'showLogin']);
+Route::post('/login', [AuthController::class, 'login'])->name('login');
+Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
  
 Route::get('/index', function () {
     return view('index');
