@@ -18,7 +18,7 @@ use App\Http\Controllers\AuthController;
 
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('index.php');
 });
 
 Route::get('/rolesadministrativos', [RolesadministrativosController::class, 'index']) 
@@ -79,6 +79,9 @@ Route::post('/archivos', [ArchivoController::class, 'store'])->name('archivos.st
 Route::get('/', [AuthController::class, 'showLogin']);
 Route::post('/login', [AuthController::class, 'login'])->name('login');
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+
+Route::get('/register', [AuthController::class, 'showRegister'])->name('register.form');
+Route::post('/register', [AuthController::class, 'register'])->name('register');
  
 Route::get('/index', function () {
     return view('index');

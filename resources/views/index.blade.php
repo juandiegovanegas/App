@@ -48,10 +48,27 @@
             </div>
 
             <button class="btn btn-primary w-100">Entrar</button>
+
+
+            <div class="text-center mt-3">
+    <a href="{{ route('register') }}" class="text-decoration-none">
+        ¿No tienes cuenta? <strong>Crear cuenta</strong>
+    </a>
+</div>
+
+
         </form>
     </div>
 </div>
+
+
+
+
+
+
 @endguest
+
+
 
 
 @auth
@@ -175,8 +192,8 @@
 
 
 
-            
 
+    
 
 
 
